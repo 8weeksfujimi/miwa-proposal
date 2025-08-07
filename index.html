@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美和さんの富士見町物件活用プラン | 8weeks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --notion-bg: #ffffff;
+            --notion-bg-gray: #f7f6f3;
+            --notion-bg-brown: #f4f1ee;
+            --notion-text: #37352f;
+            --notion-text-gray: #787774;
+            --notion-text-light: #9b9a97;
+            --notion-border: #e9e9e7;
+            --notion-blue: #2eaadc;
+            --notion-green: #0f7b6c;
+            --notion-orange: #d9730d;
+            --notion-red: #e03e3e;
+            --notion-purple: #6940a5;
+            --notion-yellow: #dfab01;
+            --shadow-light: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08);
+            --shadow-medium: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-heavy: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--notion-bg-gray);
+            color: var(--notion-text);
+            line-height: 1.6;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            position: relative;
+        }
+
+        /* Notion風のページ折り返しデザイン */
+        .slide-area {
+            flex: 1;
+            position: relative;
+            background: var(--notion-bg-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 900px;
+            min-height: 700px;
+            max-height: 85vh;
+            background: var(--notion-bg);
+            border-radius: 3px;
+            box-shadow: var(--shadow-heavy);
+            padding: 60px 80px;
+            position: relative;
+            overflow-y: auto;
+            display: none;
+            flex-direction: column;
+            /* Notion風の紙の折り返し */
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 85%, #f7f6f3 85%, #f7f6f3 100%);
+        }
+
+        .slide.active {
+            display: flex;
+            animation: slideIn 500ms ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Notion風のページ右上折り返し */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(225deg, var(--notion-bg-gray) 50%, transparent 50%);
+            border-bottom-left-radius: 3px;
+            box-shadow: -2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-header {
+            margin-bottom: 40px;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--notion-text);
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+        }
+
+        .slide-subtitle {
+            font-size: 1.1rem;
+            color: var(--notion-text-gray);
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* メイン選択肢レイアウト - 横一列にコンパクト化 */
+        .main-topics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .main-topic {
+            background: var(--notion-bg);
+            border: 1px solid var(--notion-border);
+            border-radius: 6px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            opacity: 0.7;
+            transform: scale(0.98);
+            text-align: center;
+        }
+
+        .main-topic:hover {
+            opacity: 0.95;
+            transform: scale(1);
+            border-color: var(--notion-blue);
+            box-shadow: var(--shadow-light);
+        }
+
+        .main-topic.active {
+            opacity: 1;
+            transform: scale(1.01);
+            border-color: var(--notion-blue);
+            box-shadow: var(--shadow-medium);
+            background: linear-gradient(135deg, rgba(46, 170, 220, 0.03) 0%, var(--notion-bg) 100%);
+        }
+
+        .topic-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .topic-icon {
+            font-size: 1.2rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--notion-bg-gray);
+            border-radius: 6px;
+        }
+
+        .main-topic.active .topic-icon {
+            background: linear-gradient(135deg, var(--notion-blue), #1e9bd1);
+            color: white;
+        }
+
+        .topic-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--notion-text);
+            margin: 0;
+            text-align: center;
+        }
+
+        .main-topic.active .topic-title {
+            color: var(--notion-blue);
+        }
+
+        .topic-description {
+            font-size: 0.75rem;
+            color: var(--notion-text-gray);
+            line-height: 1.4;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* サブトピック詳細エリア */
+        .sub-topics-area {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            margin-top: 32px;
+        }
+
+        .sub-topics-area.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sub-topics {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sub-topic {
+            background: var(--notion-bg);
+            border: 1px solid var(--notion-border);
+            border-radius: 6px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .sub-topic:hover {
+            box-shadow: var(--shadow-light);
+            border-color: var(--notion-blue);
+        }
+
+        .sub-topic-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .sub-topic-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--notion-blue), #1e9bd1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .sub-topic-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--notion-text);
+            margin: 0;
+        }
+
+        .sub-topic-content {
+            font-size: 0.95rem;
+            color: var(--notion-text-gray);
+            line-height: 1.6;
+        }
+
+        .sub-topic-content ul {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .sub-topic-content li {
+            margin: 4px 0;
+        }
+
+        .sub-topic-content strong {
+            color: var(--notion-text);
+            font-weight: 600;
+        }
+
+        /* サマリーセクション */
+        .topic-summary {
+            background: var(--notion-bg-brown);
+            border: 1px solid var(--notion-border);
+            border-radius: 6px;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .topic-summary.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .summary-header {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .summary-header:hover {
+            background: rgba(46, 170, 220, 0.03);
+        }
+
+        .summary-header.expanded {
+            border-bottom-color: var(--notion-border);
+        }
+
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--notion-text);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-toggle {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            color: var(--notion-text-gray);
+        }
+
+        .summary-toggle:hover {
+            background: var(--notion-bg-gray);
+            color: var(--notion-blue);
+        }
+
+        .summary-toggle-icon {
+            transition: transform 0.2s ease;
+        }
+
+        .summary-toggle.expanded .summary-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .summary-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .summary-content.expanded {
+            max-height: 1000px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 24px;
+        }
+
+        .summary-item {
+            background: var(--notion-bg);
+            border-radius: 4px;
+            padding: 16px;
+            border-left: 4px solid var(--notion-blue);
+        }
+
+        .summary-item-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--notion-blue);
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .summary-item-content {
+            font-size: 0.9rem;
+            color: var(--notion-text-gray);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .summary-item.positive {
+            border-left-color: var(--notion-green);
+        }
+
+        .summary-item.positive .summary-item-label {
+            color: var(--notion-green);
+        }
+
+        .summary-item.negative {
+            border-left-color: var(--notion-red);
+        }
+
+        .summary-item.negative .summary-item-label {
+            color: var(--notion-red);
+        }
+
+        .summary-item.next-step {
+            border-left-color: var(--notion-orange);
+        }
+
+        .summary-item.next-step .summary-item-label {
+            color: var(--notion-orange);
+        }
+
+        /* ナビゲーションサイドバー */
+        .nav-sidebar {
+            width: 320px;
+            background: var(--notion-bg);
+            border-left: 1px solid var(--notion-border);
+            padding: 32px 24px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .nav-header {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--notion-border);
+        }
+
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--notion-text);
+            margin: 0 0 8px 0;
+        }
+
+        .nav-subtitle {
+            font-size: 0.9rem;
+            color: var(--notion-text-gray);
+            margin: 0;
+        }
+
+        .nav-structure {
+            position: relative;
+        }
+
+        .nav-main-item {
+            background: var(--notion-bg);
+            border: 1px solid var(--notion-border);
+            border-radius: 6px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .nav-main-item.active {
+            border-color: var(--notion-blue);
+            box-shadow: var(--shadow-light);
+        }
+
+        .nav-main-button {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 16px 20px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-main-button:hover {
+            background: var(--notion-bg-gray);
+        }
+
+        .nav-main-button.active {
+            background: linear-gradient(135deg, var(--notion-blue), #1e9bd1);
+            color: white;
+        }
+
+        .nav-main-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--notion-bg-gray);
+            color: var(--notion-text);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .nav-main-button.active .nav-main-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .nav-main-text {
+            flex: 1;
+        }
+
+        .nav-main-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+            line-height: 1.3;
+        }
+
+        .nav-main-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* プログレスインジケーター */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--notion-bg-gray);
+            z-index: 200;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--notion-blue), #1e9bd1);
+            width: 0%;
+            transition: width 500ms ease-out;
+        }
+
+        /* コントロールボタン */
+        .slide-controls {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .control-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--notion-bg);
+            border: 1px solid var(--notion-border);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--notion-text-gray);
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .control-btn:hover {
+            background: var(--notion-blue);
+            border-color: var(--notion-blue);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .control-btn:disabled:hover {
+            background: var(--notion-bg);
+            border-color: var(--notion-border);
+            color: var(--notion-text-gray);
+            transform: scale(1);
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 1024px) {
+            .presentation-container {
+                flex-direction: column;
+            }
+            
+            .nav-sidebar {
+                width: 100%;
+                height: 180px;
+                order: -1;
+            }
+            
+            .main-topics {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 32px;
+                min-height: 600px;
+                max-height: 90vh;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .main-topics {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .main-topic {
+                padding: 12px;
+            }
+            
+            .nav-sidebar {
+                height: 140px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+            
+            /* 印刷時に隠す要素 */
+            .no-print, 
+            .control-btn,
+            .slide-controls,
+            .progress-bar,
+            .nav-sidebar,
+            .summary-toggle,
+            button {
+                display: none !important;
+            }
+            
+            /* レイアウト調整 */
+            .presentation-container {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+            
+            .slide-area {
+                width: 100%;
+                height: auto;
+                padding: 0;
+                background: white;
+            }
+            
+            .slide {
+                display: block !important;
+                position: static;
+                width: 100%;
+                max-width: none;
+                min-height: auto;
+                max-height: none;
+                background: white;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 20px 0;
+                margin-bottom: 30px;
+                page-break-inside: avoid;
+                overflow: visible;
+            }
+            
+            .slide::before {
+                display: none;
+            }
+            
+            /* 文字色とサイズ調整 */
+            * {
+                color: #000 !important;
+                background: white !important;
+            }
+            
+            .slide-title {
+                font-size: 24pt;
+                color: #000 !important;
+                margin-bottom: 16px;
+            }
+            
+            .slide-subtitle {
+                font-size: 12pt;
+                color: #333 !important;
+                margin-bottom: 20px;
+            }
+            
+            .topic-title {
+                font-size: 11pt;
+                color: #000 !important;
+            }
+            
+            .topic-description {
+                font-size: 9pt;
+                color: #666 !important;
+            }
+            
+            /* メイントピック表示調整 */
+            .main-topics {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin-bottom: 25px;
+            }
+            
+            .main-topic {
+                border: 1px solid #ccc !important;
+                padding: 12px;
+                background: white !important;
+                border-radius: 4px;
+            }
+            
+            .topic-icon {
+                background: #f0f0f0 !important;
+                color: #000 !important;
+            }
+            
+            /* サブトピック表示調整 */
+            .sub-topics-area {
+                opacity: 1 !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .sub-topic {
+                border: 1px solid #ddd !important;
+                background: white !important;
+                margin-bottom: 15px;
+                page-break-inside: avoid;
+            }
+            
+            .sub-topic-header {
+                border-bottom: 1px solid #eee !important;
+                padding-bottom: 8px;
+            }
+            
+            .sub-topic-icon {
+                background: #333 !important;
+                color: white !important;
+            }
+            
+            .sub-topic-title {
+                font-size: 12pt;
+                color: #000 !important;
+            }
+            
+            .sub-topic-content {
+                font-size: 10pt;
+                color: #333 !important;
+                line-height: 1.4;
+            }
+            
+            /* テーブル調整 */
+            table {
+                page-break-inside: avoid;
+                border-collapse: collapse;
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            table th,
+            table td {
+                border: 1px solid #000 !important;
+                padding: 6px !important;
+                font-size: 9pt !important;
+                color: #000 !important;
+                background: white !important;
+            }
+            
+            table th {
+                background: #f0f0f0 !important;
+                font-weight: bold;
+            }
+            
+            /* サマリー調整 */
+            .topic-summary {
+                border: 1px solid #ccc !important;
+                background: white !important;
+                margin-bottom: 20px;
+                page-break-inside: avoid;
+            }
+            
+            .summary-header {
+                border-bottom: 1px solid #ddd !important;
+                background: #f8f8f8 !important;
+                padding: 10px;
+            }
+            
+            .summary-title {
+                font-size: 11pt;
+                color: #000 !important;
+            }
+            
+            .summary-content {
+                max-height: none !important;
+                display: block !important;
+                padding: 10px;
+            }
+            
+            /* 改ページ制御 */
+            .slide {
+                page-break-after: always;
+            }
+            
+            .slide:last-child {
+                page-break-after: auto;
+            }
+            
+            h1, h2, h3, h4 {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-container">
+    <!-- プログレスバー -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    
+    <!-- メインスライドエリア -->
+    <div class="slide-area">
+        <!-- スライド1: 概要 -->
+        <div class="slide active" id="slide-overview">
+            <div class="slide-header">
+                <h1 class="slide-title">美和さんの富士見町物件活用プラン 🏡</h1>
+                <p class="slide-subtitle">千葉への引っ越し後も富士見町とのつながりを大切にしながら、最適な物件活用を検討</p>
+            </div>
+            
+            <div class="slide-content">
+                <div class="main-topics">
+                    <div class="main-topic" onclick="showSubTopics('premise')">
+                        <div class="topic-header">
+                            <div class="topic-icon">💭</div>
+                            <h3 class="topic-title">検討の前提</h3>
+                        </div>
+                        <p class="topic-description">美和さんの状況と重要な価値観を整理</p>
+                    </div>
+                    <div class="main-topic" onclick="showSubTopics('options')">
+                        <div class="topic-header">
+                            <div class="topic-icon">🎯</div>
+                            <h3 class="topic-title">3つの基本選択肢</h3>
+                        </div>
+                        <p class="topic-description">賃貸運用・売却・Airbnb運用の比較検討</p>
+                    </div>
+                    <div class="main-topic" onclick="showSubTopics('analysis')">
+                        <div class="topic-header">
+                            <div class="topic-icon">📊</div>
+                            <h3 class="topic-title">収益性分析</h3>
+                        </div>
+                        <p class="topic-description">詳細な財務分析とOption Valueの重要性</p>
+                    </div>
+                    <div class="main-topic" onclick="showSubTopics('recommendation')">
+                        <div class="topic-header">
+                            <div class="topic-icon">✨</div>
+                            <h3 class="topic-title">総合判断と推奨</h3>
+                        </div>
+                        <p class="topic-description">最終提案とネクストステップ</p>
+                    </div>
+                </div>
+                
+                <div class="sub-topics-area" id="sub-topics">
+                    <!-- サブトピックは動的に表示 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- スライドコントロール -->
+        <div class="slide-controls">
+            <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
+            <button class="control-btn" onclick="resetView()">↻</button>
+        </div>
+    </div>
+    
+    <!-- ナビゲーションサイドバー -->
+    <div class="nav-sidebar">
+        <div class="nav-header">
+            <h2 class="nav-title">物件活用検討</h2>
+            <p class="nav-subtitle">経済性と居場所確保の両立</p>
+        </div>
+        
+        <div class="nav-structure">
+            <div class="nav-main-item active" id="nav-premise">
+                <button class="nav-main-button active" onclick="showSubTopics('premise')">
+                    <div class="nav-main-icon">💭</div>
+                    <div class="nav-main-text">
+                        <div class="nav-main-title">検討の前提</div>
+                        <div class="nav-main-desc">状況整理・価値観・方針</div>
+                    </div>
+                </button>
+            </div>
+            
+            <div class="nav-main-item" id="nav-options">
+                <button class="nav-main-button" onclick="showSubTopics('options')">
+                    <div class="nav-main-icon">🎯</div>
+                    <div class="nav-main-text">
+                        <div class="nav-main-title">3つの選択肢</div>
+                        <div class="nav-main-desc">賃貸・売却・Airbnb</div>
+                    </div>
+                </button>
+            </div>
+            
+            <div class="nav-main-item" id="nav-analysis">
+                <button class="nav-main-button" onclick="showSubTopics('analysis')">
+                    <div class="nav-main-icon">📊</div>
+                    <div class="nav-main-text">
+                        <div class="nav-main-title">収益性分析</div>
+                        <div class="nav-main-desc">財務詳細・IRR・Option Value</div>
+                    </div>
+                </button>
+            </div>
+
+            <div class="nav-main-item" id="nav-recommendation">
+                <button class="nav-main-button" onclick="showSubTopics('recommendation')">
+                    <div class="nav-main-icon">✨</div>
+                    <div class="nav-main-text">
+                        <div class="nav-main-title">総合判断</div>
+                        <div class="nav-main-desc">推奨・代替案・次のステップ</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// サブトピックデータ
+const subTopicsData = {
+    'premise': {
+        title: '💭 検討の前提',
+        points: [
+            '美和さんの状況：富士見町4年在住、結婚により千葉移住予定',
+            '検討軸：経済性（収益・リスク）と居場所確保の両立',
+            '方針：2つの軸から最適な物件活用方法を提案'
+        ],
+        topics: [
+            {
+                title: '美和さんの現状',
+                icon: '👤',
+                content: `<ul>
+                           <li>富士見町移住4年、結婚により千葉へ移住予定</li>
+                           <li>富士見町の物件（取得価格700万円、10年ローン）の活用方法を検討</li>
+                           <li><strong>重要な希望</strong>：定期的に戻ってくる居場所が欲しい</li>
+                         </ul>`
+            },
+            {
+                title: '検討の2つの軸',
+                icon: '⚖️',
+                content: `<ul>
+                           <li><strong>💰 経済性</strong> - 長期的な収益とリスクのバランス</li>
+                           <li><strong>🏡 居場所確保</strong> - 千葉引っ越し後も戻れる場所の確保</li>
+                         </ul>`
+            },
+            {
+                title: '検討の方針',
+                icon: '🎯',
+                content: `この2つの観点から美和さんの状況に最適な物件活用方法を検討。<br>
+                         <strong>経済性と居場所確保</strong>のバランスを重視した提案。`
+            }
+        ]
+    },
+    'options': {
+        title: '🎯 3つの基本選択肢',
+        points: [
+            '美和さんの状況で考えられる物件活用方法を表形式で比較',
+            '居場所確保と収益性の観点から各選択肢を評価',
+            '推奨度を明確にして最適な選択肢を提示'
+        ],
+        topics: [
+            {
+                title: '3つの選択肢 比較表',
+                icon: '📊',
+                content: `美和さんの状況で考えられる物件活用方法を整理すると以下3つになります。<br><br>
+                         <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem;">
+                           <thead>
+                             <tr style="background: var(--notion-bg-gray); border: 1px solid var(--notion-border);">
+                               <th style="padding: 12px 8px; border: 1px solid var(--notion-border); text-align: left; font-weight: 600;">項目</th>
+                               <th style="padding: 12px 8px; border: 1px solid var(--notion-border); text-align: center; background: #fef3f3;">🏠 賃貸運用</th>
+                               <th style="padding: 12px 8px; border: 1px solid var(--notion-border); text-align: center; background: #fff8e1;">💰 売却</th>
+                               <th style="padding: 12px 8px; border: 1px solid var(--notion-border); text-align: center; background: #e8f5e8;">🏨 Airbnb運用</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             <tr>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); font-weight: 600; background: var(--notion-bg-gray);">概要</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">居住用賃貸として従来型の運用</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">物件を売却し資金回収・バランスシート改善</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">宿泊施設としての収益化と居場所確保の両立</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); font-weight: 600; background: var(--notion-bg-gray);">✅ メリット</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">• 追加投資不要<br>• 安定した賃料収入（月6万円）<br>• 管理が比較的簡単<br>• 返済分程度は確保可能</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">• バランスシート改善<br>• 負債の一括返済<br>• 管理負担なし<br>• 運営リスクなし</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">• <strong>富士見での居場所を確保しながら収益化</strong><br>• 高い収益性（年150万円想定）<br>• 自己利用可能<br>• 物件の維持・改善が可能</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); font-weight: 600; background: var(--notion-bg-gray);">❌ デメリット</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">• <strong>富士見での居場所がなくなる</strong><br>• 空室時の修繕費負担</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">• <strong>富士見での居場所がなくなる</strong><br>• 売却益までは望めなさそう</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border);">• 初期投資必要（50-100万円）<br>• 売上変動リスクあり<br>• 運営管理の手間<br>• 許認可申請が必要</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); font-weight: 600; background: var(--notion-bg-gray);">居場所確保</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center;">❌ 不可</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center;">❌ 不可</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center; background: #e8f5e8;"><strong>✅ 可能</strong></td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); font-weight: 600; background: var(--notion-bg-gray);">収益性</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center;">🟡 限定的</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center;">🟡 一時的</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center; background: #e8f5e8;"><strong>🟢 高い</strong></td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); font-weight: 600; background: var(--notion-bg-gray);">推奨度</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center; background: #fef3f3;">🔴 除外</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center; background: #fff8e1;">🟡 検討</td>
+                               <td style="padding: 10px 8px; border: 1px solid var(--notion-border); text-align: center; background: #e8f5e8;"><strong>🟢 推奨</strong></td>
+                             </tr>
+                           </tbody>
+                         </table>`
+            }
+        ]
+    },
+    'analysis': {
+        title: '📊 収益性の詳細分析',
+        points: [
+            '4つのシナリオ比較：賃貸・Airbnb悲観（100万円）・現実（150万円）・楽観（180万円）',
+            'Option Value：年20日利用で年間24万円の機会費用削減効果（賃貸以外）',
+            '投資判断：Option Value込みで150万円から十分な投資妥当性、賃貸も選択肢'
+        ],
+        topics: [
+            {
+                title: '4つのシナリオ比較',
+                icon: '📊',
+                content: `<strong>全体比較表</strong><br>
+                         <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85rem;">
+                           <thead>
+                             <tr style="background: var(--notion-bg-gray); border: 1px solid var(--notion-border);">
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: left;">項目</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">賃貸</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">悲観(100万)</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">現実(150万)</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">楽観(180万)</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">年間売上</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥720,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥1,000,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; background: #e8f5e8;">¥1,500,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥1,800,000</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">運営費用</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥156,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥740,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; background: #e8f5e8;">¥945,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥1,068,000</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">営業利益(NOI)</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥564,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥260,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; background: #e8f5e8;">¥555,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥732,000</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">ローン返済</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">-¥633,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">-¥633,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; background: #e8f5e8;">-¥633,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">-¥633,492</td>
+                             </tr>
+                             <tr style="font-weight: 600; background: var(--notion-bg-brown);">
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border);">手残り(NCF)</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-red);">-¥69,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-red);">-¥373,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-red); background: #e8f5e8;">-¥78,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green);">¥98,508</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">純投資IRR</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green);">9.5%</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-red);">-6.5%</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green); background: #e8f5e8;">5.1%</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green);">11.5%</td>
+                             </tr>
+                           </tbody>
+                         </table>`
+            },
+            {
+                title: 'Option Value（自己利用価値）込み比較',
+                icon: '✨',
+                content: `<strong>Option Value概念</strong>：美和さんが年間20日利用する場合の機会費用削減効果<br>
+                         <ul>
+                           <li>年間滞在日数：20日 × 代替宿泊費12,000円/泊 = <strong>年間24万円</strong></li>
+                           <li>賃貸の場合は自己利用不可のため0円</li>
+                         </ul>
+                         <br>
+                         <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85rem;">
+                           <thead>
+                             <tr style="background: var(--notion-bg-gray); border: 1px solid var(--notion-border);">
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: left;">項目</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">賃貸</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">悲観(100万)</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">現実(150万)</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: right;">楽観(180万)</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">NCF</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">-¥69,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">-¥373,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; background: #e8f5e8;">-¥78,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥98,508</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">Option Value</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥0</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥240,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; background: #e8f5e8;">¥240,000</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right;">¥240,000</td>
+                             </tr>
+                             <tr style="font-weight: 600; background: var(--notion-bg-brown);">
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border);">実質手残り</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-red);">-¥69,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-red);">-¥133,492</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green); background: #e8f5e8;">¥161,508</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green);">¥338,508</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">実質IRR</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green);">9.5%</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green);">3.1%</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green); background: #e8f5e8; font-weight: 700;">13.8%</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: right; color: var(--notion-green);">20.6%</td>
+                             </tr>
+                           </tbody>
+                         </table>`
+            },
+            {
+                title: 'シナリオ別詳細分析',
+                icon: '🔍',
+                content: `<strong>🔴 悲観シナリオ（100万円）</strong><br>
+                         <ul>
+                           <li>稼働100日：集客に苦戦、競合激化の場合</li>
+                           <li>純投資IRR -6.5%：投資妥当性なし</li>
+                           <li>Option Value込み IRR 3.1%：ギリギリ妥当性あり</li>
+                         </ul>
+                         <br>
+                         <strong>🟢 現実的シナリオ（150万円）</strong><br>
+                         <ul>
+                           <li>稼働150日：適度な集客、安定運営の場合</li>
+                           <li>純投資IRR 5.1%：投資妥当性あり</li>
+                           <li>Option Value込み IRR 13.8%：優良投資</li>
+                         </ul>
+                         <br>
+                         <strong>🔵 楽観シナリオ（180万円）</strong><br>
+                         <ul>
+                           <li>稼働180日：集客好調、フル稼働の場合</li>
+                           <li>純投資IRR 11.5%：高い投資妥当性</li>
+                           <li>Option Value込み IRR 20.6%：非常に優秀な投資</li>
+                         </ul>
+                         <br>
+                         <strong>🏠 賃貸シナリオ</strong><br>
+                         <ul>
+                           <li>月額6万円：安定収入、管理負担少</li>
+                           <li>IRR 9.5%：良好な投資収益</li>
+                           <li>デメリット：居場所確保不可</li>
+                         </ul>`
+            }
+        ]
+    },
+    'recommendation': {
+        title: '✨ 総合判断と推奨',
+        points: [
+            '推奨：Airbnb運用（IRR 13.8%の優良投資、居場所確保可能）',
+            '2つの選択肢の客観的比較：投資・収益・居場所・管理・地域貢献・資産の観点',
+            'ネクストステップ：リスク許容度確認と具体的な検討事項の整理'
+        ],
+        topics: [
+            {
+                title: '推奨：Airbnb運用での物件活用',
+                icon: '🏨',
+                content: `分析の結果、美和さんの状況では<strong>Airbnb運用が最適</strong>と考えます。<br><br>
+                         <strong>🎯 美和さんの2つの重要な条件を両方満たす</strong><br>
+                         <ul>
+                           <li><strong>経済性</strong>: Option Value込みで年間実質収益約80万円（IRR 13.8%）</li>
+                           <li><strong>居場所確保</strong>: 年間制限なしで自由度の高い利用が可能</li>
+                         </ul>
+                         <br>
+                         <strong>具体的なメリット</strong><br>
+                         <ul>
+                           <li>✅ <strong>居場所を確保しながら一定の収益性を実現</strong></li>
+                           <li>✅ 150万円シナリオは現実的に達成可能</li>
+                           <li>✅ 物件価値の維持・向上が期待できる</li>
+                           <li>✅ 地域への貢献（長期滞在者の受入）</li>
+                         </ul>
+                         <br>
+                         <strong>初期投資と運営について</strong><br>
+                         <ul>
+                           <li><strong>初期投資</strong>: 50-100万円（断熱・キッチン改修・許認可等）</li>
+                           <li><strong>運営</strong>: 8weeksが代行（手数料30%）</li>
+                           <li><strong>リスク</strong>: 稼働率変動があるが、Option Value込みなら十分な投資妥当性</li>
+                         </ul>`
+            },
+            {
+                title: '💡 こんな提案はどうでしょう？：8weeks Studio共同オーナー制度',
+                icon: '🤝',
+                content: `ただ、<strong>こんなのがあったら面白いかもしれません。</strong><br><br>
+                         <strong>制度概要</strong><br>
+                         <ul>
+                           <li><strong>月額負担</strong>：2万円</li>
+                           <li><strong>宿泊権</strong>：年間20泊</li>
+                           <li><strong>超過利用</strong>：1ヶ月前予約で1万円/泊（ハイシーズン除く）</li>
+                           <li><strong>紹介特典</strong>：宿泊権のご友人・ご家族の使用もOK、超過分は友人宿泊で5,000円キャッシュバック/泊など？</li>
+                         </ul>
+                         <br>
+                         <strong>魅力</strong><br>
+                         <ul>
+                           <li><strong>確実な居場所確保</strong></li>
+                           <li><strong>管理負担ゼロ</strong></li>
+                           <li><strong>民泊運営のリスクを取らないで済む</strong></li>
+                           <li><strong>バランスシート改善</strong>（物件売却により負債返済）</li>
+                           <li><strong>年間コスト</strong>：24万円（Option Valueと同等）</li>
+                         </ul>
+                         <br>
+                         <strong>注意点</strong><br>
+                         <ul>
+                           <li>ハイシーズンは利用制限</li>
+                         </ul>`
+            },
+            {
+                title: '2つの選択肢の最終比較',
+                icon: '📊',
+                content: `Airbnb運用を基本推奨としつつ、選択肢を客観的に比較してみました。<br><br>
+                         <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85rem;">
+                           <thead>
+                             <tr style="background: var(--notion-bg-gray); border: 1px solid var(--notion-border);">
+                               <th style="padding: 8px; border: 1px solid var(--notion-border); text-align: left;">評価項目</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border);">Airbnb運用（現実的シナリオ）</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border);">売却＋共同オーナー</th>
+                               <th style="padding: 8px; border: 1px solid var(--notion-border);">評価</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">初期投資・リスク</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); background: #f8d7da;">100万円の投資必要<br>収益変動リスクあり</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); background: #d4edda;">売却により負債解消<br>低リスク</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: center; font-weight: bold; color: #28a745;">○共同オーナー</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">年間実質収益</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); background: #d4edda;"><strong>80万円</strong><br>（Option Value込み）</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border);">実質負担ゼロ<br>（宿泊権価値で相殺）</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: center; font-weight: bold; color: #007bff;">◎Airbnb</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">富士見町での居場所</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); background: #d4edda;"><strong>自由度の高い利用</strong><br>年間制限なし</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border);">年間20泊の確実な利用<br>追加利用は1万円/泊</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: center; font-weight: bold; color: #007bff;">◎Airbnb</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">管理負担</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border);">8weeksが代行<br>（手数料30%）</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); background: #d4edda;"><strong>完全に不要</strong></td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: center; font-weight: bold; color: #28a745;">○共同オーナー</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">地域貢献</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); background: #d4edda;"><strong>長期滞在者受入</strong><br>直接的な地域活性化</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border);">8weeksを通じた<br>間接的な地域貢献</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: center; font-weight: bold; color: #28a745;">○Airbnb</td>
+                             </tr>
+                             <tr>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); font-weight: 600;">20年後の資産</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); background: #d4edda;"><strong>物件所有継続</strong><br>価値上昇の可能性</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border);">資産売却済み<br>現金での資産形成</td>
+                               <td style="padding: 6px 8px; border: 1px solid var(--notion-border); text-align: center; font-weight: bold; color: #28a745;">○Airbnb</td>
+                             </tr>
+                             <tr style="background: var(--notion-bg-brown); font-weight: bold;">
+                               <td style="padding: 8px; border: 1px solid var(--notion-border); font-weight: 700;">総合評価</td>
+                               <td style="padding: 8px; border: 1px solid var(--notion-border); text-align: center; color: #28a745;"><strong>🟢 高収益・高自由度</strong></td>
+                               <td style="padding: 8px; border: 1px solid var(--notion-border); text-align: center; color: #ffc107;"><strong>🟡 低リスク・管理不要</strong></td>
+                               <td style="padding: 8px; border: 1px solid var(--notion-border); text-align: center; font-size: 1.0em;"><strong>両方に魅力</strong></td>
+                             </tr>
+                           </tbody>
+                         </table>`
+            },
+            {
+                title: '推奨：Airbnb運用',
+                icon: '🏨',
+                content: `<strong>推奨理由</strong><br>
+                         <ul>
+                           <li>純投資でも妥当性あり（IRR 5.1%）、Option Value込みで優良投資（IRR 13.8%）</li>
+                           <li>居場所確保と収益化の両立</li>
+                           <li>150万円シナリオは現実的に達成可能</li>
+                         </ul>
+                         <br>
+                         <strong>適合する方</strong><br>
+                         <ul>
+                           <li>ある程度のリスクを取れる</li>
+                           <li>物件運営に関わりたい</li>
+                           <li>より高い収益性を求める</li>
+                         </ul>`
+            },
+            {
+                title: 'ネクストステップ',
+                icon: '📅',
+                content: `<strong>1. リスク許容度の確認</strong><br>
+                         　- どの程度の変動リスクを取れるか<br>
+                         　- 初期投資への考え方<br><br>
+                         <strong>2. 具体的検討事項</strong><br>
+                         　- Airbnb運用：初期投資計画、許認可申請<br>
+                         　- 共同オーナー：8weeks Studio制度の詳細確認<br><br>
+                         <strong>3. 意思決定サポート</strong><br>
+                         　- 追加の疑問点への回答<br>
+                         　- より詳細な収支シミュレーション`
+            }
+        ]
+    }
+};
+
+// 現在の状態
+let currentTopic = null;
+
+// DOM要素
+const progressFill = document.getElementById('progressFill');
+const subTopicsArea = document.getElementById('sub-topics');
+const navItems = document.querySelectorAll('.nav-main-item');
+const navButtons = document.querySelectorAll('.nav-main-button');
+const mainTopics = document.querySelectorAll('.main-topic');
+
+// 初期化
+document.addEventListener('DOMContentLoaded', () => {
+    showSubTopics('premise');
+    console.log('美和さん物件活用プラン準備完了');
+});
+
+// サブトピック表示
+function showSubTopics(topicKey) {
+    currentTopic = topicKey;
+    const data = subTopicsData[topicKey];
+    
+    if (!data) return;
+    
+    // ナビゲーション状態更新
+    navItems.forEach(item => item.classList.remove('active'));
+    navButtons.forEach(button => button.classList.remove('active'));
+    mainTopics.forEach(topic => topic.classList.remove('active'));
+    
+    // ナビゲーションアイテムのマッピング更新
+    const navMapping = {
+        'premise': 'nav-premise',
+        'options': 'nav-options', 
+        'analysis': 'nav-analysis',
+        'recommendation': 'nav-recommendation'
+    };
+    
+    const activeNavItem = document.getElementById(navMapping[topicKey]);
+    const activeNavButton = activeNavItem?.querySelector('.nav-main-button');
+    const activeMainTopic = document.querySelector(`.main-topic[onclick*="${topicKey}"]`);
+    
+    if (activeNavItem) activeNavItem.classList.add('active');
+    if (activeNavButton) activeNavButton.classList.add('active');
+    if (activeMainTopic) activeMainTopic.classList.add('active');
+    
+    // サマリー＋サブトピック内容生成
+    const summaryHtml = data.points ? `
+        <div class="topic-summary">
+            <div class="summary-header" onclick="toggleSummary(event)">
+                <h3 class="summary-title">📝 セクションサマリー</h3>
+                <button class="summary-toggle">
+                    <span class="summary-toggle-icon">▼</span>
+                </button>
+            </div>
+            <div class="summary-content">
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-item-content">
+                            <ul>
+                                ${data.points.map(point => `<li>${point}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ` : '';
+
+    const subTopicsHtml = `
+        ${summaryHtml}
+        <div class="sub-topics">
+            ${data.topics.map(topic => `
+                <div class="sub-topic">
+                    <div class="sub-topic-header">
+                        <div class="sub-topic-icon">${topic.icon}</div>
+                        <h4 class="sub-topic-title">${topic.title}</h4>
+                    </div>
+                    <div class="sub-topic-content">${topic.content}</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    
+    subTopicsArea.innerHTML = subTopicsHtml;
+    subTopicsArea.classList.add('active');
+    
+    // サマリーのアニメーション遅延
+    setTimeout(() => {
+        const summaryElement = subTopicsArea.querySelector('.topic-summary');
+        if (summaryElement) {
+            summaryElement.classList.add('active');
+        }
+    }, 300);
+    
+    // プログレス更新
+    updateProgress(topicKey);
+}
+
+// プログレス更新
+function updateProgress(topicKey) {
+    const topics = Object.keys(subTopicsData);
+    const currentIndex = topics.indexOf(topicKey);
+    const progress = ((currentIndex + 1) / topics.length) * 100;
+    progressFill.style.width = progress + '%';
+}
+
+// ビューリセット
+function resetView() {
+    subTopicsArea.classList.remove('active');
+    mainTopics.forEach(topic => topic.classList.remove('active'));
+    navItems.forEach(item => item.classList.remove('active'));
+    navButtons.forEach(button => button.classList.remove('active'));
+    progressFill.style.width = '0%';
+    currentTopic = null;
+}
+
+// フルスクリーン切り替え
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// キーボードナビゲーション
+document.addEventListener('keydown', (e) => {
+    const topics = Object.keys(subTopicsData);
+    const currentIndex = currentTopic ? topics.indexOf(currentTopic) : -1;
+    
+    switch(e.key) {
+        case 'ArrowRight':
+        case ' ':
+            e.preventDefault();
+            if (currentIndex < topics.length - 1) {
+                showSubTopics(topics[currentIndex + 1]);
+            }
+            break;
+        case 'ArrowLeft':
+            e.preventDefault();
+            if (currentIndex > 0) {
+                showSubTopics(topics[currentIndex - 1]);
+            }
+            break;
+        case 'Home':
+            e.preventDefault();
+            showSubTopics(topics[0]);
+            break;
+        case 'End':
+            e.preventDefault();
+            showSubTopics(topics[topics.length - 1]);
+            break;
+        case 'f':
+        case 'F11':
+            e.preventDefault();
+            toggleFullscreen();
+            break;
+        case 'Escape':
+            resetView();
+            break;
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+            e.preventDefault();
+            const topicNum = parseInt(e.key) - 1;
+            if (topicNum < topics.length) {
+                showSubTopics(topics[topicNum]);
+            }
+            break;
+    }
+});
+
+// タッチスワイプ対応
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    const topics = Object.keys(subTopicsData);
+    const currentIndex = currentTopic ? topics.indexOf(currentTopic) : -1;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0 && currentIndex < topics.length - 1) {
+            // 左スワイプ - 次のトピック
+            showSubTopics(topics[currentIndex + 1]);
+        } else if (diff < 0 && currentIndex > 0) {
+            // 右スワイプ - 前のトピック
+            showSubTopics(topics[currentIndex - 1]);
+        }
+    }
+}
+
+// サマリー折りたたみ機能
+function toggleSummary(event) {
+    event.stopPropagation();
+    
+    const header = event.currentTarget;
+    const content = header.nextElementSibling;
+    const toggle = header.querySelector('.summary-toggle');
+    
+    const isExpanded = content.classList.contains('expanded');
+    
+    if (isExpanded) {
+        // 折りたたむ
+        content.classList.remove('expanded');
+        toggle.classList.remove('expanded');
+        header.classList.remove('expanded');
+    } else {
+        // 展開する
+        content.classList.add('expanded');
+        toggle.classList.add('expanded');
+        header.classList.add('expanded');
+    }
+}
+
+// エクスポート用関数
+window.MiwaProposal = {
+    showSubTopics,
+    resetView,
+    toggleFullscreen,
+    toggleSummary,
+    currentTopic: () => currentTopic
+};
+</script>
+
+</body>
+</html>
